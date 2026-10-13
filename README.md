@@ -4,7 +4,7 @@ A full-stack healthcare web application for managing patients and clinical visit
 
 ---
 
-## 🚀 Quick Setup & Run (For Reviewers)
+## Quick Setup & Run
 
 Follow these steps to get the backend, database import, and frontend running locally in minutes.
 
@@ -100,7 +100,7 @@ Open your browser at **`http://localhost:5173`**.
 
 ---
 
-## 🧑‍⚕️ Reviewer Testing Guide
+## Testing Guide
 
 | Account Type | Credentials | Portal Experience |
 |---|---|---|
@@ -115,10 +115,10 @@ Open your browser at **`http://localhost:5173`**.
 
 ---
 
-## 🏛️ Crucial Architecture & Design Decisions
+## Architecture & Design Decisions
 
 ### Backend & API
-- **Custom User Model:** `Patient` extends `AbstractUser`, with `mobile` (11-digit validated number) as `USERNAME_FIELD` and a custom manager. Defined before the first migration as required by Django.
+- **Custom User Model:** `Patient` extends `AbstractUser`, with `mobile` (11-digit validated number) as `USERNAME_FIELD` and a custom manager. 
 - **JWT Authentication:** Login uses mobile and password (`POST /api/token/`). Registration and login endpoints are open; all other endpoints require authentication (`IsAuthenticated` is the global default).
 - **Per-User Access Control:** Staff members can see and manage all patients. Non-staff patients can only view, edit, or delete their own record, and can only add visits for themselves (`validate_patient`), preventing cross-patient data exposure.
 - **Password Safety:** Passwords are write-only in the API (never serialized or returned), checked against Django's password validators, and hashed with `set_password`.
@@ -129,15 +129,15 @@ Open your browser at **`http://localhost:5173`**.
 - **Default Import Password:** Configured via `DEFAULT_PATIENT_PASSWORD` in `.env`, validated against password policies, and applied exclusively to new imports (not existing users).
 
 ### Frontend (Task 3)
-- **Lightweight & High-Performance:** Built with React 19 and Vite using vanilla CSS (no heavy third-party UI framework dependencies).
+- **Lightweight:** Built with React 19 and Vite using vanilla CSS.
 - **Centralized Axios & Token Refresh Interceptor:** Central Axios client in `src/api/client.js` automatically attaches Bearer tokens and silently refreshes expired access tokens via `/api/token/refresh/` using a single queued refresh promise.
-- **Role Awareness:** Automatically adapts views, banners, pills, and permissions between Staff and Patient accounts.
-- **Compact UX:** Collapsible dropdown form controls prevent long, overwhelming pages.
+- **Role Awareness:** Adapts views, banners, pills, and permissions between Staff and Patient accounts.
+- **Compact UX:** Collapsible dropdown form controls prevent long pages.
 - **Interactive Medical History:** Clicking patient rows triggers accordion views of historical visits.
 
 ---
 
-## 📡 API Endpoints Summary
+## API Endpoints Summary
 
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
@@ -153,7 +153,7 @@ Open your browser at **`http://localhost:5173`**.
 
 ---
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 | Issue | Solution |
 |---|---|
